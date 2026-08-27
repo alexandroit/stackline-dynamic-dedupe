@@ -1,0 +1,34 @@
+# @stackline/dynamic-dedupe full reference
+
+`@stackline/dynamic-dedupe@{{PACKAGE_VERSION}}` is an independent maintained
+continuation of `dynamic-dedupe@0.3.0` under the MIT license.
+
+## API
+
+- `activate(extension = '.js', subdirs = 2)`: install an idempotent CommonJS
+  extension hook that reuses exports for matching module identity inputs.
+- `deactivate(extension = '.js')`: disable the hook and restore its exact
+  predecessor when it remains outermost.
+- `reset()`: clear Stackline identity records without clearing `require.cache`.
+
+Identity uses length-framed source text, basename, and selected parent directory
+components with SHA-256. This prevents path-boundary ambiguity in the upstream
+implementation. Runtime configuration is validated before hook mutation.
+
+## Verification
+
+The release checks copied trees, path-boundary collisions, repeated activation,
+loader composition, disabled embedded hooks, preserved symlinks, CommonJS deep
+imports, ESM configuration, TypeScript 3.9/current, Node 12-24, Linux/macOS/
+Windows, package contents, clean installs, aliases, coverage, and production
+dependency audit. The package has zero runtime dependencies.
+
+## Scope
+
+Native ESM imports do not pass through `require.extensions`. Use package-manager
+constraints, peer dependencies, import maps, or a dedicated loader for ESM.
+
+Install: `npm install @stackline/dynamic-dedupe`
+Alias: `npm install dynamic-dedupe@npm:@stackline/dynamic-dedupe`
+Repository: https://github.com/alexandroit/stackline-dynamic-dedupe
+Security: https://github.com/alexandroit/stackline-dynamic-dedupe/security/policy

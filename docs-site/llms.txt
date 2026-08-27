@@ -1,0 +1,13 @@
+# @stackline/dynamic-dedupe
+
+Install: `npm install @stackline/dynamic-dedupe`
+Drop-in alias: `npm install dynamic-dedupe@npm:@stackline/dynamic-dedupe`
+Current release: `{{PACKAGE_VERSION}}`
+Repository: https://github.com/alexandroit/stackline-dynamic-dedupe
+Documentation: https://alexandro.net/docs/vanilla/dynamic-dedupe/
+
+Compatibility-first CommonJS module deduplication for copied, linked, and
+preserved-symlink dependency trees. API: `activate`, `deactivate`, `reset`.
+Zero runtime dependencies. Node 12-24. TypeScript 3.9 and current.
+
+The hook affects CommonJS `require()` only; it is not a native ESM loader.

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@stackline/dynamic-dedupe - CommonJS identity across linked modules</title>
+  <meta name="description" content="A zero-dependency dynamic-dedupe compatibility package with safer CommonJS hook composition, linked-module identity, ESM configuration, and TypeScript types.">
+  <meta name="keywords" content="dynamic-dedupe, CommonJS, npm link, preserve symlinks, node-dev, TypeScript">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0e6f6a">
+  <link rel="canonical" href="https://alexandro.net/docs/vanilla/dynamic-dedupe/">
+  <link rel="stylesheet" href="./styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="@stackline/dynamic-dedupe">
+  <meta property="og:description" content="Share CommonJS module identity across linked and copied dependency trees.">
+  <meta property="og:url" content="https://alexandro.net/docs/vanilla/dynamic-dedupe/">
+  <meta property="og:image" content="https://alexandro.net/docs/vanilla/dynamic-dedupe/assets/dynamic-dedupe-workbench.png">
+  <meta property="og:image:alt" content="Dynamic dedupe identity workbench comparing linked CommonJS module paths">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="@stackline/dynamic-dedupe">
+  <meta name="twitter:description" content="A maintained CommonJS dynamic-dedupe continuation with safer loader composition.">
+  <meta name="twitter:image" content="https://alexandro.net/docs/vanilla/dynamic-dedupe/assets/dynamic-dedupe-workbench.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "@stackline/dynamic-dedupe",
+    "version": "{{PACKAGE_VERSION}}",
+    "description": "Compatibility-first CommonJS module deduplication for linked and copied dependency trees.",
+    "codeRepository": "https://github.com/alexandroit/stackline-dynamic-dedupe",
+    "downloadUrl": "https://www.npmjs.com/package/@stackline/dynamic-dedupe",
+    "license": "https://github.com/alexandroit/stackline-dynamic-dedupe/blob/main/LICENSE",
+    "programmingLanguage": "JavaScript",
+    "runtimePlatform": "Node.js 12-24",
+    "url": "https://alexandro.net/docs/vanilla/dynamic-dedupe/"
+  }
+  </script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#workbench">Skip to identity workbench</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="@stackline/dynamic-dedupe home">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>@stackline/dynamic-dedupe</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#workbench">Workbench</a>
+      <a href="#api">API</a>
+      <a href="#proof">Verification</a>
+      <a href="#migration">Migration</a>
+      <a href="https://github.com/alexandroit/stackline-dynamic-dedupe">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="product-intro" aria-labelledby="page-title">
+      <div class="intro-content">
+        <p class="eyebrow">CommonJS identity control</p>
+        <h1 id="page-title">@stackline/<wbr>dynamic-dedupe</h1>
+        <p>Reuse one exports object across copied and linked CommonJS trees, with a small upstream-compatible API and loader restoration designed for current Node tooling.</p>
+        <div class="install-row">
+          <code id="install-command">npm install @stackline/dynamic-dedupe</code>
+          <button class="compact-button" type="button" data-copy="#install-command">Copy</button>
+        </div>
+        <div class="release-line" aria-label="Release facts">
+          <span>v{{PACKAGE_VERSION}}</span><span>Node 12-24</span><span>TypeScript 3.9+</span><span>Zero runtime dependencies</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-band" id="workbench" aria-labelledby="workbench-title">
+      <div class="section-inner wide">
+        <div class="section-heading">
+          <div><p class="eyebrow dark">Executable identity model</p><h2 id="workbench-title">Dedupe workbench</h2></div>
+          <button type="button" class="text-button" id="reset-button">Reset</button>
+        </div>
+        <div class="control-bar link-controls">
+          <label><span>First resolved path</span><input id="path-a" value="/workspace-a/node_modules/shared/lib/index.js"></label>
+          <label><span>Second resolved path</span><input id="path-b" value="/workspace-b/node_modules/shared/lib/index.js"></label>
+          <label class="number-control"><span>Parent depth</span><input id="depth" type="number" min="0" max="12" value="2"></label>
+          <button class="primary-button" type="button" id="evaluate-button">Evaluate</button>
+        </div>
+        <div class="workspace-grid parser-stage dedupe-stage">
+          <article class="editor-panel">
+            <header><h3><label for="source-a">First module source</label></h3><span>CommonJS</span></header>
+            <textarea id="source-a" spellcheck="false">global.loads = (global.loads || 0) + 1
+module.exports = { loads: global.loads }</textarea>
+          </article>
+          <article class="editor-panel">
+            <header><h3><label for="source-b">Second module source</label></h3><span>CommonJS</span></header>
+            <textarea id="source-b" spellcheck="false">global.loads = (global.loads || 0) + 1
+module.exports = { loads: global.loads }</textarea>
+          </article>
+        </div>
+        <div class="comparison-result" id="comparison-result" aria-live="polite">
+          <span class="status-indicator" id="status-indicator"></span>
+          <strong id="result-title">Exports will be shared</strong>
+          <span id="result-detail">Source, basename, and the final two parent directories match.</span>
+        </div>
+        <div class="status-bar"><span>Identity preview</span><code id="identity-preview">calculating...</code><span class="status-separator"></span><span>Native ESM imports are outside this hook.</span></div>
+      </div>
+    </section>
+
+    <section class="content-band" id="api" aria-labelledby="api-title">
+      <div class="section-inner content-grid">
+        <div><p class="eyebrow dark">Three functions</p><h2 id="api-title">The historical API, tightened.</h2><p>Configuration happens at process startup. Loader changes remain explicit and reversible.</p></div>
+        <div class="api-table-wrapper">
+          <table>
+            <thead><tr><th>Function</th><th>Behavior</th><th>Compatibility</th></tr></thead>
+            <tbody>
+              <tr><td><code>activate(ext?, depth?)</code></td><td>Wrap the current CommonJS loader and record matching exports.</td><td>Preserved</td></tr>
+              <tr><td><code>deactivate(ext?)</code></td><td>Disable the hook and restore its predecessor when safe.</td><td>Hardened</td></tr>
+              <tr><td><code>reset()</code></td><td>Forget recorded identities without clearing <code>require.cache</code>.</td><td>Preserved</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-band muted" aria-labelledby="usage-title">
+      <div class="section-inner content-grid">
+        <div><p class="eyebrow dark">Loader order</p><h2 id="usage-title">Compose with existing tools.</h2><p>Register a TypeScript or instrumentation hook first, then activate deduplication. The captured loader still performs compilation.</p></div>
+        <div class="code-surface">
+          <pre><code>require('typescript-loader/register')
+const dedupe = require('@stackline/dynamic-dedupe')
+
+dedupe.activate('.ts', 2)
+const service = require('./linked/service.ts')</code></pre>
+          <a class="inline-link" href="./guides/compatibility.md">Read the complete compatibility contract</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-band" id="proof" aria-labelledby="proof-title">
+      <div class="section-inner proof-grid">
+        <div><p class="eyebrow dark">Release evidence</p><h2 id="proof-title">Tested where loader hooks fail.</h2><p>The verification suite exercises identity boundaries and interactions, not only happy-path exports.</p></div>
+        <dl class="proof-list">
+          <div><dt>7</dt><dd>Node major lines from 12 through 24</dd></div>
+          <div><dt>3</dt><dd>operating systems in CI</dd></div>
+          <div><dt>0</dt><dd>runtime dependencies</dd></div>
+          <div><dt>2</dt><dd>TypeScript generations checked</dd></div>
+          <div><dt>SHA-256</dt><dd>length-framed module identity</dd></div>
+          <div><dt>Alias</dt><dd>legacy package-name smoke install</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="resource-band" id="migration" aria-labelledby="migration-title">
+      <div class="section-inner resource-grid">
+        <div><p class="eyebrow">Drop-in adoption</p><h2 id="migration-title">Keep existing requires.</h2><p>An npm alias changes the package without changing <code>require('dynamic-dedupe')</code>.</p></div>
+        <div class="code-surface">
+          <pre id="alias-command"><code>npm install dynamic-dedupe@npm:@stackline/dynamic-dedupe</code></pre>
+          <button class="compact-button" type="button" data-copy="#alias-command">Copy alias command</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-band" aria-labelledby="resources-title">
+      <div class="section-inner resource-grid">
+        <div><p class="eyebrow dark">Project resources</p><h2 id="resources-title">Inspect the contract.</h2></div>
+        <nav aria-label="Project resources">
+          <a href="https://www.npmjs.com/package/@stackline/dynamic-dedupe">npm</a>
+          <a href="https://github.com/alexandroit/stackline-dynamic-dedupe">GitHub</a>
+          <a href="./guides/migration.md">Migration</a>
+          <a href="./guides/third-party-licenses.md">Attribution</a>
+          <a href="https://github.com/alexandroit/stackline-dynamic-dedupe/blob/main/LICENSE">MIT license</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>@stackline/dynamic-dedupe</strong><span>Independent maintained continuation of dynamic-dedupe.</span></div>
+    <nav aria-label="Footer navigation"><a href="#top">Top</a><a href="./llms.txt">LLM summary</a><a href="./sitemap.xml">Sitemap</a></nav>
+  </footer>
+  <script src="./app.js" defer></script>
+  <script src="./analytics.js" defer></script>
+</body>
+</html>

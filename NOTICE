@@ -1,0 +1,10 @@
+@stackline/dynamic-dedupe
+
+This package is a compatibility-focused independent continuation of
+dynamic-dedupe, originally created by Thorsten Lorenz.
+
+Copyright 2013 Thorsten Lorenz.
+Copyright 2026 Stackline Maintainers for later modifications.
+
+The original MIT license is preserved in LICENSE. Stackline is not affiliated
+with or endorsed by the original author.
