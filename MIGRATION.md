@@ -24,7 +24,7 @@ The dependency entry becomes:
 ```json
 {
   "dependencies": {
-    "dynamic-dedupe": "npm:@stackline/dynamic-dedupe@^1.0.0"
+    "dynamic-dedupe": "npm:@stackline/dynamic-dedupe@^1.0.1"
   }
 }
 ```
