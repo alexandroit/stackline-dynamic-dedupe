@@ -1,6 +1,6 @@
 {
   "name": "@stackline/dynamic-dedupe",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Compatibility-first CommonJS module deduplication for linked and copied dependency trees",
   "type": "commonjs",
   "main": "./index.js",
@@ -97,15 +97,18 @@
     "typescript-3-9": "npm:typescript@3.9.10"
   },
   "keywords": [
+    "stackline",
+    "npm-package",
+    "dynamic-dedupe",
+    "typescript",
+    "nodejs",
     "commonjs",
     "dedupe",
     "module-loader",
     "npm-link",
     "require",
     "symlink",
-    "typescript",
     "zero-dependency",
-    "stackline",
     "module-cache",
     "deduplication"
   ],
