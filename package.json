@@ -1,6 +1,6 @@
 {
   "name": "@stackline/dynamic-dedupe",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Compatibility-first CommonJS module deduplication for linked and copied dependency trees",
   "type": "commonjs",
   "main": "./index.js",

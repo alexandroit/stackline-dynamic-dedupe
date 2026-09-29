@@ -4,7 +4,7 @@
     {
       "name": "@stackline/dynamic-dedupe",
       "path": "README.md",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "baselineVersion": "1.0.1",
       "keywords": [
         "stackline",
@@ -25,8 +25,8 @@
       "homepage": "https://alexandro.net/docs/vanilla/dynamic-dedupe/",
       "baselineTarball": "https://registry.npmjs.org/@stackline/dynamic-dedupe/-/dynamic-dedupe-1.0.1.tgz",
       "baselineIntegrity": "sha512-RiQQvvbVUzHyX5JMkmSznnRU0Q82okb/gx49TH0jYow0/89RSrYIAmzp5NJzR2sWpDbLHzXYeKv5EAWVLKMXGg==",
-      "expectedSha512": "9022f682274ebb5ebea509b5c23a6aa576de683d8a7a54d240c27add12b8162798ebf8d746982d2c9ba0aeff20e8dbfaaaacc9875a2a82e91c44a302c84936ae",
-      "tag": "docs-stackline-dynamic-dedupe-v1.0.2"
+      "expectedSha512": "f2c4e0004f7fc4c522f850a0a29cafb469fe28d0f5fae9c3715cca013cd3a533869a331cdd874214eddf82406692829818cc7617f3a2123ff707c9461614b7d0",
+      "tag": "docs-stackline-dynamic-dedupe-v1.0.3"
     }
   ]
 }
