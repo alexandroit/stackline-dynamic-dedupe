@@ -41,7 +41,7 @@ The default depth is two, matching the upstream package.
 
 | Item | Value |
 | --- | --- |
-| Package | `@stackline/dynamic-dedupe@1.0.3` |
+| Package | `@stackline/dynamic-dedupe@1.0.4` |
 | Node.js runtime | `>=12` |
 | CommonJS / primary entry | `./index.js` |
 | ES module entry | `./index.mjs` |
