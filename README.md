@@ -10,7 +10,7 @@
 
 **[Documentation](https://alexandro.net/docs/vanilla/dynamic-dedupe/)** | **[npm](https://www.npmjs.com/package/@stackline/dynamic-dedupe)** | **[Issues](https://github.com/alexandroit/stackline-dynamic-dedupe/issues)** | **[Repository](https://github.com/alexandroit/stackline-dynamic-dedupe)**
 
-**Current package version:** `1.0.3`
+**Current package version:** `1.0.5`
 
 ---
 
@@ -41,7 +41,7 @@ The default depth is two, matching the upstream package.
 
 | Item | Value |
 | --- | --- |
-| Package | `@stackline/dynamic-dedupe@1.0.4` |
+| Package | `@stackline/dynamic-dedupe@1.0.5` |
 | Node.js runtime | `>=12` |
 | CommonJS / primary entry | `./index.js` |
 | ES module entry | `./index.mjs` |
